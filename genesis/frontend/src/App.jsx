@@ -52,7 +52,10 @@ function App() {
     setOpsCount(0);
     
     try {
-      fetch('http://localhost:8000/execute', {
+      // Dynamically switch between Localhost and your Live Render URL
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
+      fetch(`${API_URL}/execute`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ intent, constraints: {} })
