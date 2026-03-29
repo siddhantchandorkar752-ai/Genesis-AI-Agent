@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: genesis-api
+  labels:
+    app: genesis
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: genesis
+  template:
+    metadata:
+      labels:
+        app: genesis
+    spec:
+      containers:
+      - name: genesis-api
+        image: genesis-api:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: REDIS_HOST
+          value: "genesis-redis"
+        - name: POSTGRES_URL
+          valueFrom:
+            secretKeyRef:
+              name: genesis-db-secret
+              key: database_url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: genesis-api
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8000
+  selector:
+    app: genesis

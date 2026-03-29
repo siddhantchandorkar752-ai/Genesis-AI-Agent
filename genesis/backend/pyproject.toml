@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "genesis-v2"
+version = "2.0.0"
+description = "GENESIS v2.0 AI Civilization Framework"
+authors = ["GENESIS System"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.109.2"
+uvicorn = "^0.27.1"
+langgraph = "^0.0.26"
+langchain = "^0.1.0"
+sqlalchemy = "^2.0.25"
+pgvector = "^0.2.5"
+redis = "^5.0.1"
+pydantic = "^2.6.1"
+pytest = "^8.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

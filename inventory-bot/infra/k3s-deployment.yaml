@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: edge-inventory-bot
+  namespace: robotics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory-bot
+  template:
+    metadata:
+      labels:
+        app: inventory-bot
+    spec:
+      containers:
+      - name: vision-node
+        image: genesis-registry/inventory-bot:v1-edge
+        resources:
+          limits:
+            nvidia.com/gpu: 1  # Designed for Jetson Orin Nano edge robots
+        volumeMounts:
+        - name: models
+          mountPath: /models
+      volumes:
+      - name: models
+        hostPath:
+          path: /opt/robot/models
